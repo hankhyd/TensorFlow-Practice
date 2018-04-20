@@ -3,7 +3,7 @@ import numpy as np
 
 #creat data
 x_data = np.random.rand(100).astype(np.float32)
-y_data = x_data*0.3 + 0.1
+y_data = x_data*0.7 + 0.4
 
 #tensorflow structure
 Weights = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
