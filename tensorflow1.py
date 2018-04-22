@@ -1,33 +1,22 @@
 import tensorflow as tf
 import numpy as np
 
-#creat data
-x_data = np.random.rand(100).astype(np.float32)
-y_data = x_data*0.7 + 0.4
+#create data
+x = np.random.rand(200).astype(np.float32) #np.random.rand(shape) will return an array with given shape and populate it with random samples from a uniform distribution over [0, 1).
+y_target = x * 0.8 + 0.3
 
-#tensorflow structure
+#building the model
 Weights = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
-Bias = tf.Variable(tf.zeros([1]))
-
-y = Weights*x_data + Bias
-
-loss = tf.reduce_mean(tf.square(y - y_data))
-optimizer = tf.train.GradientDescentOptimizer(0.5)
-train = optimizer.minimize(loss)
-
+bias = tf.Variable(tf.zeros([1]))
+y_output = tf.multiply(x, Weights) + bias
+loss = tf.reduce_mean(tf.square(y_target - y_output))
+train = tf.train.GradientDescentOptimizer(0.5).minimize(loss)
 
 init = tf.initialize_all_variables()
-
-
-#initialize
 sess = tf.Session()
 sess.run(init)
 
-
-for step in range(500):
+for i in range(201):
     sess.run(train)
-    if step % 20 == 0:
-        print(step, sess.run(Weights), sess.run(Bias))
-
-
-sate = tf.Variable()
+    if i % 10 == 0:
+        print(i, sess.run(Weights), sess.run(bias))
