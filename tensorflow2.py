@@ -1,0 +1,1 @@
+import tensorflow as tfdef add_layer(inputs, row, column, activation_function=None):    Weights = tf.Variable(tf.random_normal([row, column]))    bias = tf.Variable(tf.zeros([1, column]) + 0.1)    func = tf.multiply(inputs, Weights) + bias    if activation_function is None:        outputs = func    else:        outputs = activation_function(func)    return outputs
