@@ -32,11 +32,10 @@ with tf.name_scope('loss'):
 with tf.name_scope('train'):
     train = tf.train.GradientDescentOptimizer(0.5).minimize(loss)
 
-init = tf.global_variables_initializer()
 sess = tf.Session()
 writer = tf.summary.FileWriter('tensorboarda/', sess.graph) #the step really make tensorboard functioning
 
-sess.run(init)
+sess.run(tf.global_variables_initializer())
 
 
 fig = plt.figure()
@@ -56,3 +55,7 @@ for i in range (1000):
         lines = ax.plot(x_data, outputs_value, 'r-',lw=5)
         plt.pause(0.1)
 
+# tf.name_scope(name, default_name = None, value = None)
+# returns a context manager that creates hierarchical names for operations
+# A graph maintains a stack of name scopes. A 'with name_scope(...):' statement pushes a new name onto the stack for the lifetime of the context.
+#
