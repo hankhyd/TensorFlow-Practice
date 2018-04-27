@@ -3,14 +3,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def layer(inputs, row, column, n_layer, activation_function = None):
-    layer_name = 'layer%s' % n_layer
+    layer_name = 'layer%s' % n_layer # string formatting
     with tf.name_scope(layer_name):
         with tf.name_scope('Weight'):
             Weights = tf.Variable(tf.random_normal([row, column]))
-            tf.summary.histogram(layer_name + '/weight', Weights)
+            tf.summary.histogram(layer_name + '-weight', Weights) #tf.summary.histogram()
         with tf.name_scope('bias'):
             bias = tf.Variable(tf.zeros([1, column]) + 0.1)
-            tf.summary.histogram(layer_name + '/bias', bias)
+            tf.summary.histogram(layer_name + '-bias', bias)
         with tf.name_scope('function'):
             func = tf.matmul(inputs, Weights) + bias
         if activation_function is None:
@@ -64,3 +64,10 @@ for i in range (1000):
         result = sess.run(merge, feed_dict={xs: x_data, ys: y_data})
         writer.add_summary(result, i)
 
+# string formatting
+# string formation functions kind same as '+', the string concatenation operator
+# string formation works with integers by specifying %d instead of %s
+
+
+# tf.summary.histogram(name, values, collection = None, family = None)
+# it's adding a histogram summary makes it possible to visualize our data's distribution in Tensorboard
